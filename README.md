@@ -26,42 +26,6 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ pnpm install
-```
-
-## Running the app
-
-```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
-```
-
-## Description
-
 - This project demonstrates how to build a simple backend REST API for a Real Estate CRM.
 
 ### Development environment:
@@ -109,7 +73,32 @@ pnpm prisma migrate dev
 ### Start the project:
 
 ```
-pnpm run start:dev
+# development
+$ pnpm run start
+
+# watch mode
+$ pnpm run start:dev
+
+# production mode
+$ pnpm run start:prod
+```
+
+# unit tests
+
+```
+$ pnpm run test
+```
+
+# e2e tests
+
+```
+$ pnpm run test:e2e
+```
+
+# test coverage
+
+```
+$ pnpm run test:cov
 ```
 
 ### Access the project at:
