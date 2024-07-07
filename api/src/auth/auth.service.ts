@@ -10,6 +10,7 @@ import { AuthEntity } from './entity/auth.entity';
 import { VerifyOtpDto } from './dto/verify-otp.dto';
 import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -72,7 +73,8 @@ export class AuthService {
     return { accessToken: token, refreshToken };
   }
 
-  async login(email: string, password: string): Promise<AuthEntity> {
+  async login(loginDto: LoginDto): Promise<AuthEntity> {
+    const { email, password } = loginDto;
     // Step 1: Fetch a user with the given email
     const user = await this.prisma.user.findUnique({ where: { email } });
 
