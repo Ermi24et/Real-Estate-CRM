@@ -2,6 +2,7 @@
 import {
   BadRequestException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from './../prisma/prisma.service';
@@ -80,7 +81,7 @@ export class AuthService {
 
     // If no user is found, throw an error
     if (!user) {
-      throw new BadRequestException('Invalid credentials');
+      throw new NotFoundException('Invalid credentials');
     }
 
     // Step 2: Check if the password is correct
