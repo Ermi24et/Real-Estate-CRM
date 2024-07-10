@@ -8,10 +8,8 @@ import {
 import { PrismaService } from './../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { AuthEntity } from './entity/auth.entity';
-import { VerifyOtpDto } from './dto/verify-otp.dto';
-import { RegisterDto } from './dto/register.dto';
+import { VerifyOtpDto, RegisterDto, LoginDto } from './dto';
 import * as bcrypt from 'bcrypt';
-import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {

@@ -1,44 +1,62 @@
-import {
-  ConflictException,
-  Injectable,
-  Logger,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreatePropertyDto } from './dto/create-property.dto';
-import { UpdatePropertyDto } from './dto/update-property.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { FileUploadService } from 'src/file-upload/file-upload.service';
 
 @Injectable()
 export class PropertyService {
   logger = new Logger(PropertyService.name);
-  constructor(private prisma: PrismaService) {}
-  async createProperty(data: CreatePropertyDto) {
-    try {
-      const existingProperty = await this.prisma.property.findUnique({
-        where: {
-          name: data.name,
-        },
-      });
 
-      if (existingProperty) {
-        throw new ConflictException('this item already exists');
-      }
+  constructor(
+    private prisma: PrismaService,
+    private readonly fileUploadService: FileUploadService,
+  ) {}
 
-      const newProperty = await this.prisma.property.create({
-        data,
-      });
+  async createProperty(
+    createPropertyDto: CreatePropertyDto,
+    file: Express.Multer.File,
+  ) {
+    let uploadResult = null;
 
-      return {
-        data: newProperty,
-        message: 'property created succesffully',
-      };
-    } catch (error) {
-      this.logger.error(error.message);
+    if (file) {
+      uploadResult = await this.fileUploadService.uploadImage(file);
     }
+
+    const property = await this.prisma.property.create({
+      data: {
+        name: createPropertyDto.name,
+        price: createPropertyDto.price,
+        builtAt: createPropertyDto.builtAt,
+        numbersOfRoom: createPropertyDto.numbersOfRoom,
+        numbersOfBathRoom: createPropertyDto.numbersOfBathRoom,
+        numbersOfBedRoom: createPropertyDto.numbersOfBedRoom,
+        isSold: createPropertyDto.isSold,
+        location: createPropertyDto.location,
+        images: {
+          create: uploadResult
+            ? [
+                {
+                  url: uploadResult.secure_url,
+                  publicId: uploadResult.public_id,
+                },
+              ]
+            : [],
+        },
+      },
+    });
+
+    return property;
   }
 
-  async findAll() {
-    const properties = await this.prisma.property.findMany({});
+  async findAll(propertyId: string) {
+    const properties = await this.prisma.property.findMany({
+      where: {
+        id: propertyId,
+      },
+      include: {
+        images: true,
+      },
+    });
 
     return properties;
   }
@@ -46,40 +64,71 @@ export class PropertyService {
   async findOne(id: string) {
     const existingProperty = await this.prisma.property.findUnique({
       where: { id },
+      include: { images: true },
     });
 
     if (!existingProperty) {
-      throw new NotFoundException('this item is not found');
+      throw new NotFoundException('This property is not found');
     }
-    return this.prisma.property.findUnique({
-      where: {
-        id,
-      },
-    });
+
+    return existingProperty;
   }
 
-  async update(id: string, data: UpdatePropertyDto) {
-    const updatedData = await this.prisma.property.update({
-      where: {
-        id,
-      },
-      data,
+  async update(file: Express.Multer.File, id: string) {
+    let uploadResult = null;
+
+    if (file) {
+      uploadResult = await this.fileUploadService.uploadImage(file);
+    }
+
+    const existingProperty = await this.prisma.property.findUnique({
+      where: { id },
+      include: { images: true },
     });
 
-    return {
-      updatedData,
-    };
+    if (!existingProperty) {
+      throw new NotFoundException('This property is not found');
+    }
+
+    const updatedData = await this.prisma.property.update({
+      where: { id },
+      data: {
+        images: uploadResult
+          ? {
+              upsert: {
+                where: { id: existingProperty.images[0]?.id || 0 }, // Assuming the first image for simplicity
+                update: {
+                  url: uploadResult.secure_url,
+                  publicId: uploadResult.public_id,
+                },
+                create: {
+                  url: uploadResult.secure_url,
+                  publicId: uploadResult.public_id,
+                },
+              },
+            }
+          : undefined,
+      },
+    });
+
+    return updatedData;
   }
 
   async remove(id: string) {
+    const property = await this.prisma.property.findUnique({
+      where: { id },
+    });
+
+    if (!property) {
+      throw new NotFoundException('This property is not found');
+    }
+
     await this.prisma.property.delete({
-      where: {
-        id,
-      },
+      where: { id },
     });
 
     return {
-      message: 'data deleted success',
+      message: 'Property deleted successfully',
     };
   }
 }

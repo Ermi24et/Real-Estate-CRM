@@ -7,7 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from 'src/users/users.module';
 import { JwtStrategy } from './jwt.strategy';
 
-export const jwtSecret = 'zjP9h6ZI5LoSKCRj';
+export const jwtSecret = process.env.JWT_SECRET_KEY;
 
 @Module({
   imports: [

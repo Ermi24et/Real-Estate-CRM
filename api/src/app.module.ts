@@ -6,10 +6,23 @@ import { UsersModule } from './users/users.module';
 import { PropertyModule } from './property/property.module';
 import { AuthModule } from './auth/auth.module';
 import { MailModule } from './mail/mail.module';
+import { FileUploadModule } from './file-upload/file-upload.module';
+import { ConfigModule } from '@nestjs/config';
+import { FileUploadProvider } from './file-upload/cloudinary-provider';
 
 @Module({
-  imports: [PrismaModule, UsersModule, PropertyModule, AuthModule, MailModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    PrismaModule,
+    UsersModule,
+    PropertyModule,
+    AuthModule,
+    MailModule,
+    FileUploadModule,
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, FileUploadProvider],
 })
 export class AppModule {}
