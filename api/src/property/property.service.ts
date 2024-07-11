@@ -12,10 +12,7 @@ export class PropertyService {
     private readonly fileUploadService: FileUploadService,
   ) {}
 
-  async createProperty(
-    createPropertyDto: CreatePropertyDto,
-    file: Express.Multer.File,
-  ) {
+  async test(createPropertyDto: CreatePropertyDto, file: Express.Multer.File) {
     let uploadResult = null;
 
     if (file) {
@@ -24,14 +21,7 @@ export class PropertyService {
 
     const property = await this.prisma.property.create({
       data: {
-        name: createPropertyDto.name,
-        price: createPropertyDto.price,
-        builtAt: createPropertyDto.builtAt,
-        numbersOfRoom: createPropertyDto.numbersOfRoom,
-        numbersOfBathRoom: createPropertyDto.numbersOfBathRoom,
-        numbersOfBedRoom: createPropertyDto.numbersOfBedRoom,
-        isSold: createPropertyDto.isSold,
-        location: createPropertyDto.location,
+        ...createPropertyDto,
         images: {
           create: uploadResult
             ? [

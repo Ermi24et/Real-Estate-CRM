@@ -20,17 +20,18 @@ import { PropertyId } from 'src/auth/decorator/propertyId.decorator';
 export class PropertyController {
   constructor(private propertyService: PropertyService) {}
 
-  @Post('create')
+  @Post('image')
   @UseInterceptors(FileInterceptor('file'))
-  async createProperty(
-    @Body() createProperty: CreatePropertyDto,
-    @PropertyId() propertyId: string,
-    @UploadedFile() file?: Express.Multer.File,
+  async test(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() createPropertyDto: CreatePropertyDto,
   ) {
-    if (!createProperty) {
-      throw new BadRequestException('Property data is required');
+    console.log(file);
+    console.log(createPropertyDto.name);
+    if (!createPropertyDto) {
+      return new BadRequestException('property data is required!');
     }
-    return await this.propertyService.createProperty(createProperty, file);
+    return await this.propertyService.test(createPropertyDto, file);
   }
 
   @Get()

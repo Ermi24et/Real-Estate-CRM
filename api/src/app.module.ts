@@ -7,13 +7,14 @@ import { PropertyModule } from './property/property.module';
 import { AuthModule } from './auth/auth.module';
 import { MailModule } from './mail/mail.module';
 import { FileUploadModule } from './file-upload/file-upload.module';
-import { ConfigModule } from '@nestjs/config';
 import { FileUploadProvider } from './file-upload/cloudinary-provider';
+import { MulterModule } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
+    MulterModule.register({
+      storage: memoryStorage(),
     }),
     PrismaModule,
     UsersModule,
