@@ -29,7 +29,7 @@ model User {
 model Property {
   id                String   @id @default(uuid())
   name              String   @unique
-  price             Decimal
+  price             Int
   builtAt           Int?
   numbersOfRoom     Int      @default(0)
   numbersOfBathRoom Int      @default(0)

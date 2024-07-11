@@ -15,23 +15,24 @@ import { PropertyService } from './property.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PropertyId } from 'src/auth/decorator/propertyId.decorator';
+import { SharpPipe } from './sharp.pipe';
 
 @Controller('property')
 export class PropertyController {
   constructor(private propertyService: PropertyService) {}
 
-  @Post('image')
-  @UseInterceptors(FileInterceptor('file'))
+  @Post('images')
+  @UseInterceptors(FileInterceptor('image'))
   async test(
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile(SharpPipe) image: { filename: string; buffer: Buffer },
     @Body() createPropertyDto: CreatePropertyDto,
   ) {
-    console.log(file);
+    console.log(image);
     console.log(createPropertyDto.name);
     if (!createPropertyDto) {
       return new BadRequestException('property data is required!');
     }
-    return await this.propertyService.test(createPropertyDto, file);
+    return await this.propertyService.test(createPropertyDto, image);
   }
 
   @Get()

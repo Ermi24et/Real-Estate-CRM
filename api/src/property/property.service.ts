@@ -12,7 +12,10 @@ export class PropertyService {
     private readonly fileUploadService: FileUploadService,
   ) {}
 
-  async test(createPropertyDto: CreatePropertyDto, file: Express.Multer.File) {
+  async test(
+    createPropertyDto: CreatePropertyDto,
+    file: { filename: string; buffer: Buffer },
+  ) {
     let uploadResult = null;
 
     if (file) {
