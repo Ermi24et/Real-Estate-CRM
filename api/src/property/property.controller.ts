@@ -16,6 +16,8 @@ import { PropertyService } from './property.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { SharpPipe } from './sharp.pipe';
+import { FilterPropertiesDto } from './dto/filter-properites.dto';
+import { PaginationDto } from './dto/pagination.dto';
 
 @Controller('property')
 export class PropertyController {
@@ -37,23 +39,10 @@ export class PropertyController {
 
   @Get('test')
   async findAll(
-    @Query('page') page: number,
-    @Query('pageSize') pageSize: string,
-    @Query('minPrice') minPrice?: string,
-    @Query('maxPrice') maxPrice?: string,
-    @Query('minBedrooms') minBedrooms?: string,
-    @Query('maxBedrooms') maxBedrooms?: string,
-    @Query('location') location?: string,
+    @Query() filterDto: FilterPropertiesDto,
+    @Query() paginationDto: PaginationDto,
   ) {
-    return await this.propertyService.findAll(
-      page,
-      pageSize,
-      minPrice,
-      maxPrice,
-      minBedrooms,
-      maxBedrooms,
-      location,
-    );
+    return await this.propertyService.findAll(paginationDto, filterDto);
   }
 
   @Get(':id')

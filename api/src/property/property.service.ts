@@ -3,6 +3,8 @@ import { CreatePropertyDto } from './dto/create-property.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { FileUploadService } from 'src/file-upload/file-upload.service';
 import { Prisma } from '@prisma/client';
+import { FilterPropertiesDto } from './dto/filter-properites.dto';
+import { PaginationDto } from './dto/pagination.dto';
 
 @Injectable()
 export class PropertyService {
@@ -42,27 +44,22 @@ export class PropertyService {
     return property;
   }
 
-  async findAll(
-    page: number,
-    pageSize: string,
-    minPrice?: string,
-    maxPrice?: string,
-    minBedrooms?: string,
-    maxBedrooms?: string,
-    location?: string,
-  ) {
-    const skip = (page - 1) * parseInt(pageSize);
+  async findAll(paginationDto: PaginationDto, filterDto: FilterPropertiesDto) {
+    const { page, pageSize } = paginationDto;
+    const { minPrice, maxPrice, minBedrooms, maxBedrooms, location } =
+      filterDto;
+    const skip = (page - 1) * pageSize;
     const where = {
       price: {
-        gte: parseInt(minPrice) || 0,
-        lte: parseInt(maxPrice) || 9999999,
+        gte: minPrice || 0,
+        lte: maxPrice || 9999999,
       },
       numbersOfBedRoom: {
-        gte: parseInt(minBedrooms) || 0,
-        lte: parseInt(maxBedrooms) || 10,
+        gte: minBedrooms || 0,
+        lte: maxBedrooms || 10,
       },
       location: {
-        contains: location || '',
+        contains: location || undefined,
       },
     };
     const orderBy: Prisma.PropertyOrderByWithRelationInput = {
@@ -70,7 +67,7 @@ export class PropertyService {
     };
     return this.prisma.property.findMany({
       skip,
-      take: parseInt(pageSize),
+      take: pageSize,
       where,
       orderBy,
     });
