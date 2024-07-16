@@ -2,6 +2,7 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { FileUploadService } from 'src/file-upload/file-upload.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class PropertyService {
@@ -41,17 +42,38 @@ export class PropertyService {
     return property;
   }
 
-  async findAll(propertyId: string) {
-    const properties = await this.prisma.property.findMany({
-      where: {
-        id: propertyId,
+  async findAll(
+    page: number,
+    pageSize: string,
+    minPrice?: string,
+    maxPrice?: string,
+    minBedrooms?: string,
+    maxBedrooms?: string,
+    location?: string,
+  ) {
+    const skip = (page - 1) * parseInt(pageSize);
+    const where = {
+      price: {
+        gte: parseInt(minPrice) || 0,
+        lte: parseInt(maxPrice) || 9999999,
       },
-      include: {
-        images: true,
+      numbersOfBedRoom: {
+        gte: parseInt(minBedrooms) || 0,
+        lte: parseInt(maxBedrooms) || 10,
       },
+      location: {
+        contains: location || '',
+      },
+    };
+    const orderBy: Prisma.PropertyOrderByWithRelationInput = {
+      name: Prisma.SortOrder.asc,
+    };
+    return this.prisma.property.findMany({
+      skip,
+      take: parseInt(pageSize),
+      where,
+      orderBy,
     });
-
-    return properties;
   }
 
   async findOne(id: string) {

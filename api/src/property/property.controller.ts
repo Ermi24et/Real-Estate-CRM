@@ -8,13 +8,13 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { PropertyService } from './property.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { PropertyId } from 'src/auth/decorator/propertyId.decorator';
 import { SharpPipe } from './sharp.pipe';
 
 @Controller('property')
@@ -35,9 +35,25 @@ export class PropertyController {
     return await this.propertyService.test(createPropertyDto, image);
   }
 
-  @Get()
-  async findAll(@PropertyId() propertyId: string) {
-    return await this.propertyService.findAll(propertyId);
+  @Get('test')
+  async findAll(
+    @Query('page') page: number,
+    @Query('pageSize') pageSize: string,
+    @Query('minPrice') minPrice?: string,
+    @Query('maxPrice') maxPrice?: string,
+    @Query('minBedrooms') minBedrooms?: string,
+    @Query('maxBedrooms') maxBedrooms?: string,
+    @Query('location') location?: string,
+  ) {
+    return await this.propertyService.findAll(
+      page,
+      pageSize,
+      minPrice,
+      maxPrice,
+      minBedrooms,
+      maxBedrooms,
+      location,
+    );
   }
 
   @Get(':id')
