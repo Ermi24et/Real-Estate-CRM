@@ -10,6 +10,7 @@ import { FileUploadModule } from './file-upload/file-upload.module';
 import { FileUploadProvider } from './file-upload/cloudinary-provider';
 import { MulterModule } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
+import { LeadModule } from './lead/lead.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { memoryStorage } from 'multer';
     AuthModule,
     MailModule,
     FileUploadModule,
+    LeadModule,
   ],
   controllers: [AppController],
   providers: [AppService, FileUploadProvider],
