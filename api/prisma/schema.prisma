@@ -24,6 +24,7 @@ model User {
   otp             String?
   otpExpiresAt    DateTime?
   refreshToken    String?
+  leads           Lead[]    @relation("assignedTo")
 }
 
 model Property {
@@ -48,4 +49,36 @@ model Image {
   createdAt  DateTime @default(now())
   property   Property @relation(fields: [propertyId], references: [id])
   propertyId String
+}
+
+model Lead {
+  id           String    @id @default(uuid())
+  name         String
+  email        String?
+  phone        String?
+  source       Source
+  status       String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  assignedToId String?
+  comments     Comment[]
+  assignedTo   User?     @relation("assignedTo", fields: [assignedToId], references: [id])
+}
+
+enum Source {
+  WEBSITE_FORM
+  REFERRAL
+  ADVERTISING_CAMPAIGN
+  LINKEDIN
+  FACEBOOK
+  INSTAGRAM
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  leadId    String
+  Lead      Lead     @relation(fields: [leadId], references: [id])
 }
