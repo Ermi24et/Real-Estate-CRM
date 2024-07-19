@@ -18,8 +18,10 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { SharpPipe } from './sharp.pipe';
 import { FilterPropertiesDto } from './dto/filter-properites.dto';
 import { PaginationDto } from './dto/pagination.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('property')
+@ApiTags('property')
 export class PropertyController {
   constructor(private propertyService: PropertyService) {}
 
