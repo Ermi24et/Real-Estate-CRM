@@ -65,6 +65,9 @@ importers:
       passport-jwt:
         specifier: ^4.0.1
         version: 4.0.1
+      prisma-pagination:
+        specifier: ^0.2.3
+        version: 0.2.3
       reflect-metadata:
         specifier: ^0.2.0
         version: 0.2.2
@@ -3215,6 +3218,9 @@ packages:
   preview-email@3.0.20:
     resolution: {integrity: sha512-QbAokW2F3p0thQfp2WTZ0rBy+IZuCnf9gIUCLffr+8hq85esq6pzCA7S0eUdD6oTmtKROqoNeH2rXZWrRow7EA==}
     engines: {node: '>=14'}
+
+  prisma-pagination@0.2.3:
+    resolution: {integrity: sha512-KVKCGz5BVTYK64dpqCo7ITNFN02UN5hSzBYyR4vqNF7I4BetUeO/q7B7FECmCOPIyCBWYf2Zte68pD9S2khD3g==}
 
   prisma@5.16.1:
     resolution: {integrity: sha512-Z1Uqodk44diztImxALgJJfNl2Uisl9xDRvqybMKEBYJLNKNhDfAHf+ZIJbZyYiBhLMbKU9cYGdDVG5IIXEnL2Q==}
@@ -7863,6 +7869,8 @@ snapshots:
       pug: 3.0.3
       uuid: 9.0.1
     optional: true
+
+  prisma-pagination@0.2.3: {}
 
   prisma@5.16.1:
     dependencies:

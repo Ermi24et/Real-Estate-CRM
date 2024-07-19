@@ -60,9 +60,9 @@ model Lead {
   status       String
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  assignedToId String?
   comments     Comment[]
   assignedTo   User?     @relation("assignedTo", fields: [assignedToId], references: [id])
+  assignedToId String?
 }
 
 enum Source {
