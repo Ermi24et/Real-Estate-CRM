@@ -54,6 +54,9 @@ export class LeadService {
         },
       },
     });
+    if (!data) {
+      throw new NotFoundException('Lead not found');
+    }
     return data;
   }
 
@@ -72,41 +75,33 @@ export class LeadService {
     }
 
     // check for existing comments
-    const existingComments = updateLeadDto.comments.filter((co) => co.id);
-    for (const comment of existingComments) {
-      await this.prisma.comment.update({
-        where: {
-          id: comment.id,
-        },
-        data: {
-          content: comment.content,
-        },
-      });
-    }
+    const { comments, ...leadUpdateData } = updateLeadDto;
 
-    // create new comments
-    const newComments = updateLeadDto.comments.filter((co) => !co.id);
-    for (const comment of newComments) {
-      await this.prisma.comment.create({
-        data: {
-          content: comment.content,
-          leadId: id,
-        },
-      });
-    }
-    // finally update the Lead
     const updatedLead = await this.prisma.lead.update({
-      where: {
-        id,
-      },
-      data: {
-        ...updateLeadDto,
-        comments: undefined, // remove comments from update data
-      },
+      where: { id },
+      data: leadUpdateData,
     });
+
+    if (comments) {
+      for (const comment of comments.filter((co) => co.id)) {
+        await this.prisma.comment.update({
+          where: { id: comment.id },
+          data: { content: comment.content },
+        });
+      }
+
+      for (const comment of comments.filter((co) => !co.id)) {
+        await this.prisma.comment.create({
+          data: {
+            content: comment.content,
+            leadId: id,
+          },
+        });
+      }
+    }
     return {
-      message: 'lead updated successfully!',
-      updatedLead,
+      message: 'Lead updated successfully!',
+      data: updatedLead,
     };
   }
 

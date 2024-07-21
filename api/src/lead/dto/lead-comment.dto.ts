@@ -1,9 +1,9 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class LeadCommentDto {
-  @IsNumber()
+  @IsString()
   @IsOptional()
-  id?: number;
+  id?: string;
 
   @IsString()
   content: string;
