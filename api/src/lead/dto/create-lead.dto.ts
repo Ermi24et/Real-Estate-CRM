@@ -1,15 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Source } from '@prisma/client';
-import { Type } from 'class-transformer';
+// import { Type } from 'class-transformer';
 import {
-  IsArray,
+  // IsArray,
   IsEmail,
   IsEnum,
   IsOptional,
   IsString,
-  ValidateNested,
+  // ValidateNested,
 } from 'class-validator';
-import { LeadCommentDto } from './lead-comment.dto';
+// import { LeadCommentDto } from './lead-comment.dto';
 
 export class CreateLeadDto {
   @ApiProperty()
@@ -34,14 +34,14 @@ export class CreateLeadDto {
   @IsString()
   status: string;
 
-  @ApiProperty()
-  @IsArray()
-  @IsOptional()
-  @ValidateNested({ each: true })
-  @Type(() => LeadCommentDto)
-  comments?: LeadCommentDto[];
+  // @ApiProperty()
+  // @IsArray()
+  // @IsOptional()
+  // @ValidateNested({ each: true })
+  // @Type(() => LeadCommentDto)
+  // comments?: LeadCommentDto[];
 
-  @ApiProperty()
-  @IsString()
-  assignedToId: string;
+  // @ApiProperty()
+  // @IsString()
+  // assignedToId: string;
 }

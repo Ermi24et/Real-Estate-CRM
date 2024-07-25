@@ -16,11 +16,6 @@ export class LeadService {
       const newLead = await this.prisma.lead.create({
         data: {
           ...createLeadDto,
-          comments: {
-            create: createLeadDto.comments?.map((comment) => ({
-              content: comment.content,
-            })),
-          },
         },
       });
       return {
@@ -66,39 +61,18 @@ export class LeadService {
       where: {
         id,
       },
-      include: {
-        comments: true,
-      },
     });
     if (!existingLead) {
       throw new NotFoundException('lead not found');
     }
 
     // check for existing comments
-    const { comments, ...leadUpdateData } = updateLeadDto;
+    const { ...leadUpdateData } = updateLeadDto;
 
     const updatedLead = await this.prisma.lead.update({
       where: { id },
       data: leadUpdateData,
     });
-
-    if (comments) {
-      for (const comment of comments.filter((co) => co.id)) {
-        await this.prisma.comment.update({
-          where: { id: comment.id },
-          data: { content: comment.content },
-        });
-      }
-
-      for (const comment of comments.filter((co) => !co.id)) {
-        await this.prisma.comment.create({
-          data: {
-            content: comment.content,
-            leadId: id,
-          },
-        });
-      }
-    }
     return {
       message: 'Lead updated successfully!',
       data: updatedLead,
