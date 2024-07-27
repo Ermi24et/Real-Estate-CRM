@@ -41,7 +41,7 @@ export class CreateLeadDto {
   // @Type(() => LeadCommentDto)
   // comments?: LeadCommentDto[];
 
-  // @ApiProperty()
-  // @IsString()
-  // assignedToId: string;
+  @ApiProperty()
+  @IsString()
+  assignedToId: string;
 }

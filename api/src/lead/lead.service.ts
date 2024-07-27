@@ -43,9 +43,11 @@ export class LeadService {
       },
       include: {
         assignedTo: {
-          select: {
-            email: true,
-          },
+          select: { email: true },
+        },
+        comments: {
+          take: 10,
+          orderBy: { createdAt: 'desc' },
         },
       },
     });
