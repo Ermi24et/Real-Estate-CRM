@@ -11,9 +11,16 @@ import { FileUploadProvider } from './file-upload/cloudinary-provider';
 import { MulterModule } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { LeadModule } from './lead/lead.module';
+import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtGuard } from './auth/guards/jwt.guard';
+import { JwtStrategy } from './auth/strategy/jwt.strategy';
+import { CommentsModule } from './comments/comments.module';
+import { OpportunitiesModule } from './opportunities/opportunities.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     MulterModule.register({
       storage: memoryStorage(),
     }),
@@ -24,8 +31,15 @@ import { LeadModule } from './lead/lead.module';
     MailModule,
     FileUploadModule,
     LeadModule,
+    CommentsModule,
+    OpportunitiesModule,
   ],
   controllers: [AppController],
-  providers: [AppService, FileUploadProvider],
+  providers: [
+    AppService,
+    { provide: APP_GUARD, useClass: JwtGuard },
+    JwtStrategy,
+    FileUploadProvider,
+  ],
 })
 export class AppModule {}
