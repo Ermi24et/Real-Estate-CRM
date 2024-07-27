@@ -11,4 +11,16 @@ export class OpportunitiesService {
       data: createOpportunityDto,
     });
   }
+
+  async findOne(id: string) {
+    return this.prisma.opportunity.findUnique({
+      where: { id },
+      include: {
+        comments: {
+          take: 10,
+          orderBy: { createdAt: 'desc' },
+        },
+      },
+    });
+  }
 }
