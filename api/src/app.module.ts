@@ -14,9 +14,9 @@ import { LeadModule } from './lead/lead.module';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtGuard } from './auth/guards/jwt.guard';
-import { JwtStrategy } from './auth/strategy/jwt.strategy';
 import { CommentsModule } from './comments/comments.module';
 import { OpportunitiesModule } from './opportunities/opportunities.module';
+import { JwtStrategy } from './auth/strategy/jwt.strategy';
 
 @Module({
   imports: [
