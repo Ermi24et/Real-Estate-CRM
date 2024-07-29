@@ -1,89 +1,111 @@
 import {
-  ConflictException,
+  BadRequestException,
   Injectable,
-  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import * as bcrypt from 'bcrypt';
-import { MailService } from 'src/mail/mail.service';
-
-const roundsOfHashing = 10;
+import { OtpDto } from './dto/otp.dto';
 
 @Injectable()
 export class UsersService {
-  logger = new Logger(UsersService.name);
-  constructor(
-    private prisma: PrismaService,
-    private mailService: MailService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
-  async create(data: CreateUserDto) {
-    try {
-      const hashedPassword = await bcrypt.hash(data.password, roundsOfHashing);
-      data.password = hashedPassword;
-      const existingUser = await this.prisma.user.findUnique({
-        where: {
-          email: data.email,
-        },
-      });
-
-      if (existingUser) {
-        throw new ConflictException('user already exists');
-      }
-      const newUser = await this.prisma.user.create({
-        data,
-      });
-
-      this.mailService.sendEmail(data.email, data.firstName);
-
-      return {
-        data: newUser,
-        message: 'user created succesfully',
-      };
-    } catch (error) {
-      this.logger.error(error.message);
-    }
+  async createUser(data: CreateUserDto) {
+    const newUser = await this.prisma.user.create({
+      data,
+    });
+    return newUser;
   }
 
-  async findAll() {
-    const users = await this.prisma.user.findMany({});
-    return users;
-  }
-
-  async findOne(id: string) {
-    const existingUser = await this.prisma.user.findUnique({
+  async findUserById(id: string) {
+    const user = await this.prisma.user.findUnique({
       where: { id },
     });
-
-    if (!existingUser) {
-      throw new NotFoundException('user not found');
-    }
-    return this.prisma.user.findUnique({
-      where: {
-        id,
-      },
-    });
+    return user;
   }
 
-  async update(id: string, data: UpdateUserDto) {
-    if (data.password) {
-      data.password = await bcrypt.hash(data.password, roundsOfHashing);
-    }
+  async findUserByEmail(email: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+    return user;
+  }
+
+  async updateUser(id: string, updateUserDto: UpdateUserDto) {
     const updatedData = await this.prisma.user.update({
       where: {
         id,
       },
-      data,
+      data: updateUserDto,
     });
+    return updatedData;
+  }
+
+  async saveOtp(otpDto: OtpDto) {
+    const expireAt = new Date();
+    expireAt.setMinutes(expireAt.getMinutes() + 30);
+
+    return await this.prisma.otp.create({
+      data: {
+        code: otpDto.code,
+        userId: otpDto.userId,
+        expiresAt: expireAt,
+      },
+    });
+  }
+
+  async getOtpByUserId(userId: string) {
+    return await this.prisma.otp.findFirst({
+      where: {
+        userId,
+      },
+    });
+  }
+
+  async verifyEmail(verifyEmailDto: OtpDto) {
+    const otp = await this.prisma.otp.findFirst({
+      where: {
+        code: verifyEmailDto.code,
+        userId: verifyEmailDto.userId,
+      },
+    });
+
+    if (!otp) {
+      throw new NotFoundException('otp invalid');
+    }
+    if (otp.expiresAt < new Date()) {
+      throw new BadRequestException('otp expired');
+    }
+    const user = await this.prisma.user.update({
+      where: {
+        id: verifyEmailDto.userId,
+      },
+      data: {
+        isEmailVerified: true,
+      },
+    });
+
+    if (!user) {
+      throw new BadRequestException('can not update user');
+    }
+
     return {
-      updatedData,
+      success: true,
+      message: 'Email verified Succussfully',
     };
   }
 
-  async delete(id: string) {
+  async deleteOtpByUserId(userId: string) {
+    return await this.prisma.otp.deleteMany({
+      where: {
+        userId,
+      },
+    });
+  }
+
+  async deleteUser(id: string) {
     await this.prisma.user.delete({
       where: {
         id,
@@ -91,7 +113,7 @@ export class UsersService {
     });
 
     return {
-      message: 'data deleted succesfully',
+      message: 'User deleted succesfully',
     };
   }
 }
