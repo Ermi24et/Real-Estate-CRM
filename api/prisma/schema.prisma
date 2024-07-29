@@ -14,17 +14,26 @@ datasource db {
 }
 
 model User {
-  id              String    @id @default(uuid())
+  id              String  @id @default(uuid())
   firstName       String
   lastName        String
-  email           String    @unique
+  email           String  @unique
   password        String
-  isEmailVerified Boolean   @default(false)
+  isEmailVerified Boolean @default(false)
   phoneNumber     String?
-  otp             String?
-  otpExpiresAt    DateTime?
+  otp             Otp[]
   refreshToken    String?
-  leads           Lead[]    @relation("assignedTo")
+  leads           Lead[]  @relation("assignedTo")
+}
+
+model Otp {
+  id        String   @id @default(uuid())
+  owner     User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  code      Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  expiresAt DateTime
 }
 
 model Property {
