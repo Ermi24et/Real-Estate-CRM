@@ -19,7 +19,9 @@ import { SharpPipe } from './sharp.pipe';
 import { FilterPropertiesDto } from './dto/filter-properites.dto';
 import { PaginationDto } from './dto/pagination.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Public } from 'src/auth/decorator/public.decorator';
 
+@Public()
 @Controller('property')
 @ApiTags('property')
 export class PropertyController {
@@ -27,7 +29,7 @@ export class PropertyController {
 
   @Post('images')
   @UseInterceptors(FileInterceptor('image'))
-  async test(
+  async uploadFile(
     @UploadedFile(SharpPipe) image: { filename: string; buffer: Buffer },
     @Body() createPropertyDto: CreatePropertyDto,
   ) {
@@ -36,10 +38,10 @@ export class PropertyController {
     if (!createPropertyDto) {
       return new BadRequestException('property data is required!');
     }
-    return await this.propertyService.test(createPropertyDto, image);
+    return await this.propertyService.uploadFile(createPropertyDto, image);
   }
 
-  @Get('test')
+  @Get('image')
   async findAll(
     @Query() filterDto: FilterPropertiesDto,
     @Query() paginationDto: PaginationDto,

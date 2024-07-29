@@ -15,7 +15,7 @@ export class PropertyService {
     private readonly fileUploadService: FileUploadService,
   ) {}
 
-  async test(
+  async uploadFile(
     createPropertyDto: CreatePropertyDto,
     file: { filename: string; buffer: Buffer },
   ) {
@@ -107,8 +107,8 @@ export class PropertyService {
       data: {
         images: uploadResult
           ? {
-              upsert: {
-                where: { id: existingProperty.images[0]?.id || 0 }, // Assuming the first image for simplicity
+              upsert: existingProperty.images.map((image) => ({
+                where: { id: image.id.toString() },
                 update: {
                   url: uploadResult.secure_url,
                   publicId: uploadResult.public_id,
@@ -117,7 +117,7 @@ export class PropertyService {
                   url: uploadResult.secure_url,
                   publicId: uploadResult.public_id,
                 },
-              },
+              })),
             }
           : undefined,
       },
