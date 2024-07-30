@@ -1,4 +1,3 @@
-// controllers/property.controller.ts
 import {
   BadRequestException,
   Body,
@@ -12,6 +11,7 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
+
 import { PropertyService } from './property.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { FileInterceptor } from '@nestjs/platform-express';

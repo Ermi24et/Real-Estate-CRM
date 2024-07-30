@@ -1,5 +1,3 @@
-//src/auth/auth.controller.ts
-
 import {
   Body,
   ClassSerializerInterceptor,
@@ -10,6 +8,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+
 import { AuthService } from './auth.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RegisterDto } from './dto/register.dto';
