@@ -26,31 +26,65 @@
 
 ## Description
 
-- This project demonstrates how to build a simple backend REST API for a Real Estate CRM.
+- This project demonstrates how to build a simple backend REST API for a Real Estate CRM(customer relationship management). CRM is a system for managing all of your company's interactions with current and potential customers(lead and opportunity).
 
 Below are some features implemented to date:
 
-- [Create, Filter, Edit, Update, and Delete a user.](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#create-filter-edit-update-and-delete-a-user)
+- [Create, Filter, Edit, Update, and Delete a user.](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#create-filter-edit-update-and-delete-a-user):
 
-- [Authorize, Authenticate, Verify password of a user]()
-- [Create, filter, Edit, Update, Delete a property]()
-- [Create, Filter, Edit, Update, Delete a lead]()
-- [Create, Filter, Edit, Update, Delete a opportunities]()
-- [Create, Filter, Edit, Update, Delete a comment for the lead or opportunity created]()
+  - you can create a user with first name, last name, email, password, when you register you will get an OTP by your email then you can verify your email using that OTP.
+  - you can find a user with its email or id.
+  - you can update a user by using his id with first name, last name, email, password.
+  - you can delete a user by id.
+
+- [Authorize, Authenticate, Verify password of a user](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#authorize-authenticate-verify-password-of-a-user)
+  - when log in using email and password you will get access tokens and refresh tokens, using those the access token you can access protected routes(eg. user profile).
+  - here is the route to verify your email using the OTP.
+- [Create, filter, Edit, Update, Delete a property](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#create-filter-edit-update-delete-a-property)
+  - you can create a property using name, price, and the neccessary attributes to create your property.
+  - you can also upload a file(images) relating to the properties, the image will be optimized(tested example: an image optimized from 1826 KB to 38.2 KB)
+  - you can filter property by its Id
+  - you can update a property by its Id.
+  - you can delete a property by its Id.
+- [Create, Filter, Edit, Update, Delete a lead](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#create-filter-edit-update-delete-a-lead)
+  - you can create a lead(potential customer) with name, email...
+  - you can find a lead by its Id.
+  - you can update a lead by its Id.
+  - you can delete a lead by its Id.
+- [Create, Filter, Edit, Update, Delete a opportunity](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#create-filter-edit-update-delete-a-opportunities)
+  - you can create an opportunity by its stage, probability, expected close date...
+  - you can find an opportunity by its Id.
+  - you can update an opportunity by its Id.
+    you can delete an opportunity by its Id.
+- [Create, Filter, Edit, Update, Delete a comments for the lead or opportunity created](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#create-filter-edit-update-delete-a-comment-for-the-lead-or-opportunity-created)
+  - you can create comments for lead and opportunity.
+  - you can also filter the comments by Id and by page(eg. get the first 10 comments written for this lead or opportunity)
+  - you can update the comments using Id(lead, opportunity)
+  - you can delete the comments using Id(lead, opportunity)
 
 ### Create, Filter, Edit, Update, and Delete a user.
 
-![Create, Filter, Edit, Update, and Delete a user.](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/users.png)
+![users api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/users.png)
 
 ### Authorize, Authenticate, Verify password of a user
 
+![authorize user api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/auth.png)
+
 ### Create, filter, Edit, Update, Delete a property
+
+![property api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/property.png)
 
 ### Create, Filter, Edit, Update, Delete a lead
 
+![lead api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/lead.png)
+
 ### Create, Filter, Edit, Update, Delete a opportunities
 
+![opportunities api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/opportunity.png)
+
 ### Create, Filter, Edit, Update, Delete a comment for the lead or opportunity created
+
+![comment api for lead and opportunity](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/comments.png)
 
 ## Development environment:
 
