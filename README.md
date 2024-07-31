@@ -29,6 +29,7 @@
 - This project demonstrates how to build a simple backend REST API for a Real Estate CRM.
 
 Below are some features implemented to date:
+
 [Create, filter, Edit, Update, and Delete a user.](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/users.png)
 
 - ![Create, filter, Edit, Update, and Delete a user.](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/users.png)
