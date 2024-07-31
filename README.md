@@ -42,10 +42,11 @@ Below are some features implemented to date:
   - here is the route to verify your email using the OTP.
 - [Create, filter, Edit, Update, Delete a property](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#create-filter-edit-update-delete-a-property)
   - you can create a property using name, price, and the neccessary attributes to create your property.
-  - you can also upload a file(images) relating to the properties, the image will be optimized(tested example: an image optimized from 1826 KB to 38.2 KB)
   - you can filter property by its Id
   - you can update a property by its Id.
   - you can delete a property by its Id.
+- [Upload a file(image)]():
+  - you can also upload a file(images) relating to the properties, the image will be optimized(tested example: an image optimized from 1826 KB to 38.2 KB)
 - [Create, Filter, Edit, Update, Delete a lead](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#create-filter-edit-update-delete-a-lead)
   - you can create a lead(potential customer) with name, email...
   - you can find a lead by its Id.
@@ -73,6 +74,10 @@ Below are some features implemented to date:
 ### Create, filter, Edit, Update, Delete a property
 
 ![property api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/property.png)
+
+### Upload a file(image)
+
+![upload image api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/uploadfile.png)
 
 ### Create, Filter, Edit, Update, Delete a lead
 
