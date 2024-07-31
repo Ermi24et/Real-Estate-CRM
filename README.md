@@ -30,7 +30,7 @@
 
 Below are some features implemented to date:
 
-- ### [Create, filter, Edit, Update, and Delete a user.](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/users.png)
+- ### [Create, filter, Edit, Update, and Delete a user.](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#create-filter-edit-update-and-delete-a-user)
 
 - ![Create, filter, Edit, Update, and Delete a user.](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/users.png)
 
