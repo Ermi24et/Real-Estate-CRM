@@ -133,6 +133,16 @@ docker-compose up -d
 pnpm prisma migrate dev
 ```
 
+### Explore and manipulate your data using prisma studio
+
+```
+pnpm prisma studio
+```
+
+N.b: when you execute the above command prisma will be authomatically opened.
+
+Open another terminal:
+
 ### Start the project:
 
 ```
