@@ -45,7 +45,7 @@ Below are some features implemented to date:
   - you can filter property by its Id
   - you can update a property by its Id.
   - you can delete a property by its Id.
-- [Upload a file(image)]():
+- [Upload a file(image)](https://github.com/Ermi24et/Real-Estate-CRM/tree/master?tab=readme-ov-file#upload-a-fileimage):
   - you can also upload a file(images) relating to the properties, the image will be optimized(tested example: an image optimized from 1826 KB to 38.2 KB)
 - [Create, Filter, Edit, Update, Delete a lead](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#create-filter-edit-update-delete-a-lead)
   - you can create a lead(potential customer) with name, email...
