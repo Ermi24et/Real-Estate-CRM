@@ -32,17 +32,27 @@ Below are some features implemented to date:
 
 - [Create, Filter, Edit, Update, and Delete a user.](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#create-filter-edit-update-and-delete-a-user)
 
-- ![Create, Filter, Edit, Update, and Delete a user.](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/users.png)
-
 - [Authorize, Authenticate, Verify password of a user]()
 - [Create, filter, Edit, Update, Delete a property]()
 - [Create, Filter, Edit, Update, Delete a lead]()
 - [Create, Filter, Edit, Update, Delete a opportunities]()
 - [Create, Filter, Edit, Update, Delete a comment for the lead or opportunity created]()
 
-### - Create, Filter, Edit, Update, and Delete a user.
+### Create, Filter, Edit, Update, and Delete a user.
 
-### Development environment:
+![Create, Filter, Edit, Update, and Delete a user.](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/users.png)
+
+### Authorize, Authenticate, Verify password of a user
+
+### Create, filter, Edit, Update, Delete a property
+
+### Create, Filter, Edit, Update, Delete a lead
+
+### Create, Filter, Edit, Update, Delete a opportunities
+
+### Create, Filter, Edit, Update, Delete a comment for the lead or opportunity created
+
+## Development environment:
 
 To follow along with this project, you will be expected to:
 
