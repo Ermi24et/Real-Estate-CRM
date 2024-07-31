@@ -33,9 +33,9 @@ Below are some features implemented to date:
 - [Create, Filter, Edit, Update, and Delete a user.](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#create-filter-edit-update-and-delete-a-user):
 
   - you can create a user with first name, last name, email, password, when you register you will get an OTP by your email then you can verify your email using that OTP.
-  - you can find a user with its email or id.
-  - you can update a user by using his id with first name, last name, email, password.
-  - you can delete a user by id.
+  - you can find a user with its email or Id.
+  - you can update a user by using his Id with first name, last name, email, password.
+  - you can delete a user by Id.
 
 - [Authorize, Authenticate, Verify password of a user](https://github.com/Ermi24et/Real-Estate-CRM?tab=readme-ov-file#authorize-authenticate-verify-password-of-a-user)
   - when log in using email and password you will get access tokens and refresh tokens, using those the access token you can access protected routes(eg. user profile).
