@@ -80,7 +80,7 @@ export class PropertyService {
     });
 
     if (!existingProperty) {
-      throw new NotFoundException('This property is not found');
+      throw new NotFoundException('This property is not found.');
     }
 
     return existingProperty;
@@ -99,7 +99,7 @@ export class PropertyService {
     });
 
     if (!existingProperty) {
-      throw new NotFoundException('This property is not found');
+      throw new NotFoundException('This property is not found.');
     }
 
     const updatedData = await this.prisma.property.update({
@@ -132,7 +132,7 @@ export class PropertyService {
     });
 
     if (!property) {
-      throw new NotFoundException('This property is not found');
+      throw new NotFoundException('This property is not found.');
     }
 
     await this.prisma.property.delete({
@@ -140,7 +140,7 @@ export class PropertyService {
     });
 
     return {
-      message: 'Property deleted successfully',
+      message: 'Property deleted successfully.',
     };
   }
 }
