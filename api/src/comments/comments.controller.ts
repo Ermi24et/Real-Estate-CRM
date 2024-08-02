@@ -38,7 +38,7 @@ export class CommentsController {
   }
 
   @Get('lead/:leadId')
-  @ApiOperation({ summary: 'Get lead comments by Id' })
+  @ApiOperation({ summary: 'Get lead comments by ID' })
   @ApiResponse({ status: 200, description: 'Returns lead by Id' })
   @ApiResponse({ status: 404, description: 'Comment Not Found' })
   @ApiParam({ name: 'leadId', required: true, type: String })
@@ -59,7 +59,7 @@ export class CommentsController {
   }
 
   @Get('opportunity/:opportunityId')
-  @ApiOperation({ summary: 'Get opportunity comment by Id' })
+  @ApiOperation({ summary: 'Get opportunity comment by ID' })
   @ApiResponse({ status: 200, description: 'Return opportunity comment by Id' })
   @ApiResponse({ status: 404, description: 'Comment Not Found' })
   @ApiParam({ name: 'opportunityId', required: true, type: String })
@@ -80,7 +80,7 @@ export class CommentsController {
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Update comments by Id' })
+  @ApiOperation({ summary: 'Update comments by ID' })
   @ApiResponse({ status: 200, description: 'Comment updated successfully' })
   @ApiResponse({ status: 404, description: 'Comment Not Found' })
   async update(
@@ -91,7 +91,7 @@ export class CommentsController {
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete comments by Id' })
+  @ApiOperation({ summary: 'Delete comments by ID' })
   @ApiResponse({ status: 200, description: 'Comment deleted successfully.' })
   @ApiResponse({ status: 404, description: 'Comment Not Found' })
   async remove(@Param('id') id: string) {
