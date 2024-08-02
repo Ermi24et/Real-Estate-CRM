@@ -67,31 +67,31 @@ Below are some features implemented to date:
 
 ### Create, Filter, Edit, Update, and Delete a user.
 
-![users api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/users.png)
+![users api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/api/utils/images/users.png)
 
 ### Authorize, Authenticate, Verify password of a user
 
-![authorize user api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/auth.png)
+![authorize user api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/api/utils/images/auth.png)
 
 ### Create, filter, Edit, Update, Delete a property
 
-![property api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/property.png)
+![property api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/api/utils/images/property.png)
 
 ### Upload a file(image)
 
-![upload image api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/uploadfile.png)
+![upload image api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/api/utils/images/uploadfile.png)
 
 ### Create, Filter, Edit, Update, Delete a lead
 
-![lead api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/lead.png)
+![lead api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/api/utils/images/lead.png)
 
 ### Create, Filter, Edit, Update, Delete a opportunities
 
-![opportunities api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/opportunity.png)
+![opportunities api](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/api/utils/images/opportunity.png)
 
 ### Create, Filter, Edit, Update, Delete a comment for the lead or opportunity created
 
-![comment api for lead and opportunity](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/images/comments.png)
+![comment api for lead and opportunity](https://github.com/Ermi24et/Real-Estate-CRM/blob/master/api/utils/images/comments.png)
 
 ## Development environment:
 
