@@ -8,6 +8,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+
 import { OpportunitiesService } from './opportunities.service';
 import { CreateOpportunityDto } from './dto/create-opportunity.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -25,7 +26,7 @@ export class OpportunitiesController {
   ) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create opportunity' })
+  @ApiOperation({ summary: 'Create Opportunity' })
   @ApiResponse({ status: 201, description: 'Opportunity created successfully' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   async create(@Body() createOpportunityDto: CreateOpportunityDto) {
@@ -33,7 +34,7 @@ export class OpportunitiesController {
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Get Opportunity by Id' })
+  @ApiOperation({ summary: 'Get Opportunity by ID' })
   @ApiResponse({ status: 200, description: 'returned opportunity by Id' })
   @ApiResponse({ status: 404, description: 'Opportunity Not Found' })
   async findOne(
@@ -51,7 +52,7 @@ export class OpportunitiesController {
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Update Opportunity by Id' })
+  @ApiOperation({ summary: 'Update Opportunity by ID' })
   @ApiResponse({
     status: 200,
     description: 'updated opportunity by successfully',
@@ -62,7 +63,7 @@ export class OpportunitiesController {
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete an Opportunity by Id' })
+  @ApiOperation({ summary: 'Delete an Opportunity by ID' })
   @ApiResponse({ status: 200, description: 'Deleted opportunity successfully' })
   @ApiResponse({ status: 404, description: 'Opportunity Not Found' })
   async delete(@Param() id: string) {
