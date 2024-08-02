@@ -8,7 +8,7 @@ export class MailService {
   constructor(private readonly mailerService: MailerService) {}
 
   async sendOtpMessage({ email, message }: { email: string; message: string }) {
-    this.logger.log(`Sending email to ${email}`);
+    this.logger.log(`Sending email to... ${email}`);
     this.logger.log(`${message}`);
 
     await this.mailerService.sendMail({
