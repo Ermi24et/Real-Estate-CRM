@@ -3,7 +3,6 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -14,10 +13,10 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async createUser(data: CreateUserDto) {
-    const newUser = await this.prisma.user.create({
+    const user = await this.prisma.user.create({
       data,
     });
-    return newUser;
+    return user;
   }
 
   async findUserById(id: string) {
@@ -94,7 +93,7 @@ export class UsersService {
 
     return {
       success: true,
-      message: 'Email verified Succussfully',
+      message: 'Email verified succussfully.',
     };
   }
 
@@ -114,7 +113,7 @@ export class UsersService {
     });
 
     return {
-      message: 'User deleted succesfully',
+      message: 'User deleted succesfully.',
     };
   }
 }
