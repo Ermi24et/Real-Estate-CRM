@@ -1,5 +1,7 @@
 # Real Estate CRM built using NestJS
 
+Crm stands for Customor Relationship management and it is basically the system you use to manage your customers, leads, contact information and tasks that need to be completed.
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
