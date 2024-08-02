@@ -1,9 +1,19 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { OpportunitiesService } from './opportunities.service';
 import { CreateOpportunityDto } from './dto/create-opportunity.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/auth/decorator/public.decorator';
 import { CommentsService } from 'src/comments/comments.service';
+import { UpdateOpportunityDto } from './dto/update-opportunity.dto';
 
 @Public()
 @Controller('opportunities')
@@ -38,5 +48,24 @@ export class OpportunitiesController {
       take,
     );
     return { ...opportunity, comments };
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'Update Opportunity by Id' })
+  @ApiResponse({
+    status: 200,
+    description: 'updated opportunity by successfully',
+  })
+  @ApiResponse({ status: 404, description: 'Opportunity Not Found' })
+  async update(@Body() id: string, updateOpportunityDto: UpdateOpportunityDto) {
+    return this.opportunitiesService.update(id, updateOpportunityDto);
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Delete an Opportunity by Id' })
+  @ApiResponse({ status: 200, description: 'Deleted opportunity successfully' })
+  @ApiResponse({ status: 404, description: 'Opportunity Not Found' })
+  async delete(@Param() id: string) {
+    return this.opportunitiesService.delete(id);
   }
 }

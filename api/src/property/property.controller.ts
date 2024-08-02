@@ -18,7 +18,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { SharpPipe } from './sharp.pipe';
 import { FilterPropertiesDto } from './dto/filter-properites.dto';
 import { PaginationDto } from './dto/pagination.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/auth/decorator/public.decorator';
 
 @Public()
@@ -27,14 +27,28 @@ import { Public } from 'src/auth/decorator/public.decorator';
 export class PropertyController {
   constructor(private propertyService: PropertyService) {}
 
-  @Post('images')
+  @Post('upload')
+  @ApiOperation({ summary: 'Create a property' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'File to upload',
+    required: true,
+    type: 'multipart/form-data',
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @UseInterceptors(FileInterceptor('image'))
   async uploadFile(
     @UploadedFile(SharpPipe) image: { filename: string; buffer: Buffer },
     @Body() createPropertyDto: CreatePropertyDto,
   ) {
-    console.log(image);
-    console.log(createPropertyDto.name);
     if (!createPropertyDto) {
       return new BadRequestException('property data is required!');
     }
@@ -42,6 +56,7 @@ export class PropertyController {
   }
 
   @Get('image')
+  @ApiOperation({ summary: 'Get all properties by pagination' })
   async findAll(
     @Query() filterDto: FilterPropertiesDto,
     @Query() paginationDto: PaginationDto,
@@ -50,11 +65,13 @@ export class PropertyController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get a property by Id' })
   async findOne(@Param('id') id: string) {
     return await this.propertyService.findOne(id);
   }
 
   @Patch('file/:id')
+  @ApiOperation({ summary: 'Update a property' })
   @UseInterceptors(FileInterceptor('file'))
   async update(
     @UploadedFile() file: Express.Multer.File,
@@ -64,6 +81,7 @@ export class PropertyController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a property' })
   async delete(@Param('id') id: string) {
     return this.propertyService.remove(id);
   }
